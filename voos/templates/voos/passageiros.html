@@ -12,6 +12,8 @@
 
 <br><br>
 
+{% if request.user.is_authenticated %}
+  
 <h3>Criar novo passageiro:</h3>
 
 <form action="" method="POST">
@@ -20,6 +22,8 @@
   <input type="submit" value="Criar">
 </form>
 <br><br>
+{% endif %}
+
 <a href="{% url 'voos' %}"><button>Voltar à lista de voos</button></a>
 
 {% endblock main %}
