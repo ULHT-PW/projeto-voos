@@ -1,0 +1,55 @@
+{% extends "voos/base.html" %}
+
+{% block main %}
+
+<h3>Voo: {{ voo }}</h3>
+
+<ul>
+  <li>Origem: {{ voo.origem }}</li>
+  <li>Destino: {{ voo.destino }}</li>
+  <li>Duração: {{ voo.duracao }} </li>
+</ul>
+
+<h4>Passageiros</h4>
+
+<ul>
+  {% for passageiro in passageiros %}
+  <li>
+    <a href="{% url 'passageiro' passageiro.id %}">{{ passageiro }}</a>
+    {% if request.user.is_authenticated %}
+    <button><a href="{% url 'remover' voo.id passageiro.id %}">remover</a> </button>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li>voo sem passageiros</li>
+  {% endfor %}
+</ul>
+
+
+{% if request.user.is_authenticated %}
+
+<h4>Adicionar Passageiro</h4>
+
+<ul>
+  <li>
+
+    <form action="{% url 'adicionar' voo.id %}" method="POST">
+      {% csrf_token %}
+      <select name="passageiro">
+        {% for passageiro in nao_passageiros %}
+        <option value="{{ passageiro.id }}">{{ passageiro }}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Adicionar">
+    </form>
+
+  </li>
+</ul>
+
+{% endif %}
+
+
+<br><br>
+<a href="{% url 'voos' %}"><button>Voltar à lista de voos</button></a>
+
+{% endblock main %}

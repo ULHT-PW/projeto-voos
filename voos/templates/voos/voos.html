@@ -1,0 +1,13 @@
+{% extends "voos/base.html" %}
+
+{% block main %}
+  
+<ul>
+    {% for voo in voos  %}
+      <li>
+        <a href="{% url 'voo' voo.id %}">{{ voo }}</a> 
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock main %}

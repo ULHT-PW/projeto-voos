@@ -1,0 +1,17 @@
+{% extends "voos/base.html" %}
+
+{% block main %}
+
+<h3>Passageiro {{ passageiro }} </h3>
+
+<p>Voos:</p>
+<ul>
+    {% for voo in passageiro.voos.all  %}
+      <li> {{ voo }} </li>
+    {% endfor %}
+</ul>
+
+<br><br>
+<a href="{% url 'voos' %}"><button>Voltar à lista de voos</button></a>
+
+{% endblock main %}
