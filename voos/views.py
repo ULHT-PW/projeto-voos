@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+
+from voos.forms import PassageiroForm, VooForm
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -27,8 +29,13 @@ def voo_view(request, voo_id):
 
 def passageiros_view(request):
 
+    form = PassageiroForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+
     context= {
-        'passageiros': Passageiro.objects.all().order_by('nome')
+        'passageiros': Passageiro.objects.all().order_by('nome'),
+        'form': PassageiroForm(None),
     }
     return render(request, 'voos/passageiros.html', context)
 
@@ -36,8 +43,14 @@ def passageiros_view(request):
 def passageiro_view(request, passageiro_id):
 
     passageiro = Passageiro.objects.get(id=passageiro_id)
+
+    form = VooForm(request.POST or None, instance=passageiro)
+    if form.is_valid():
+        form.save()
+
     context= {
-        'passageiro': passageiro
+        'passageiro': passageiro,
+        'form': form,
     }
 
     return render(request, 'voos/passageiro.html', context)

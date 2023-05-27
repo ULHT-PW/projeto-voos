@@ -4,7 +4,6 @@
 
 <h3>Passageiros</h3>
 
-<p>Passageiros:</p>
 <ul>
     {% for passageiro in passageiros  %}
       <li> <a href="{% url 'passageiro' passageiro.id %}">{{ passageiro }}</a> </li>
@@ -13,6 +12,14 @@
 
 <br><br>
 
+<h3>Criar novo passageiro:</h3>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" value="Criar">
+</form>
+<br><br>
 <a href="{% url 'voos' %}"><button>Voltar à lista de voos</button></a>
 
 {% endblock main %}

@@ -10,14 +10,14 @@
   <li>Duração: {{ voo.duracao }} </li>
 </ul>
 
-<h4>Passageiros</h4>
+<h4>Passageiros do voo:</h4>
 
 <ul>
   {% for passageiro in passageiros %}
   <li>
     <a href="{% url 'passageiro' passageiro.id %}">{{ passageiro }}</a>
     {% if request.user.is_authenticated %}
-    <button><a href="{% url 'remover' voo.id passageiro.id %}">remover</a> </button>
+    <a href="{% url 'remover' voo.id passageiro.id %}">🗑</a> 
     {% endif %}
   </li>
   {% empty %}
@@ -28,7 +28,7 @@
 
 {% if request.user.is_authenticated %}
 
-<h4>Adicionar Passageiro</h4>
+<h4>Adicionar passageiro ao voo:</h4>
 
 <ul>
   <li>

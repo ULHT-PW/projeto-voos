@@ -2,14 +2,22 @@
 
 {% block main %}
 
-<h3>Passageiro {{ passageiro }} </h3>
+<h1>Passageiro {{ passageiro }} </h1>
 
-<p>Voos:</p>
+<h3>Voos:</h3>
 <ul>
     {% for voo in passageiro.voos.all  %}
       <li> {{ voo }} </li>
     {% endfor %}
 </ul>
+<br>
+<h3>Adicionar voo:</h3>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Selecionar">
+</form>
 
 <br><br>
 <a href="{% url 'voos' %}"><button>Voltar à lista de voos</button></a>
