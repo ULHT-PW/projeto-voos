@@ -63,14 +63,9 @@ def adicionar_passageiro_view(request, voo_id):
     if request.method == 'POST':
         passageiro = Passageiro.objects.get(id=request.POST['passageiro'])
         voo.passageiros.add(passageiro)
+        
+    return redirect('voo', voo_id=voo_id)
 
-    context= {
-        'voo': voo,
-        'passageiros': voo.passageiros.all(),
-        'nao_passageiros': Passageiro.objects.exclude(voos__in = [voo])
-    }
-
-    return render(request, 'voos/voo.html', context)
 
 @login_required
 def remover_passageiro_view(request, voo_id, passageiro_id):
@@ -78,14 +73,7 @@ def remover_passageiro_view(request, voo_id, passageiro_id):
     passageiro = Passageiro.objects.get(id = passageiro_id)
 
     voo.passageiros.remove(passageiro)
-        
-    context= {
-        'voo': voo,
-        'passageiros': voo.passageiros.all(),
-        'nao_passageiros': Passageiro.objects.exclude(voos__in = [voo])
-    }
-
-    return render(request, 'voos/voo.html', context)
+    return redirect('voo', voo_id=voo_id)
 
 
 def login_view(request):
