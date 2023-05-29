@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 def voos_view(request):
 
+    print(request.user.username)
+
     context= {
         'voos': Voo.objects.all().order_by('origem')
     }
@@ -69,10 +71,12 @@ def adicionar_passageiro_view(request, voo_id):
 
 @login_required
 def remover_passageiro_view(request, voo_id, passageiro_id):
+
     voo = Voo.objects.get(id=voo_id)
     passageiro = Passageiro.objects.get(id = passageiro_id)
 
     voo.passageiros.remove(passageiro)
+
     return redirect('voo', voo_id=voo_id)
 
 
@@ -93,7 +97,6 @@ def login_view(request):
                 'message': 'Credenciais invalidas'
             })
     return render(request, 'voos/login.html')
-
 
 
 def logout_view(request):

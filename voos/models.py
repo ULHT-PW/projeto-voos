@@ -21,7 +21,12 @@ class Voo(models.Model):
 
 class Passageiro(models.Model):
     nome = models.CharField(max_length=20)
-    voos = models.ManyToManyField(Voo, null=True, blank=True, related_name='passageiros')
+    voos = models.ManyToManyField(
+        Voo, 
+        null=True, 
+        blank=True, 
+        related_name='passageiros'
+        )
 
     def __str__(self):
         return self.nome
